@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import API from "../utils/API";
 import Container from "../components/Container";
 import SearchForm from "../components/SearchForm";
-import SearchResults from "../components/SearchResults";
 import Alert from "../components/Alert";
 
 class Search extends Component {
@@ -11,6 +10,7 @@ class Search extends Component {
     saved: "",
     topics: [],
     results: [],
+    articles: [],
     error: ""
   };
 
@@ -24,7 +24,10 @@ class Search extends Component {
   }
   
   loadSave = () => {
-    API.getSaved()
+    API.getSaved().then(res =>
+      this.setState({ articles: res.data})
+    )
+    .catch(err => console.log(err));
   };
 
   handleInputChange = event => {

@@ -10,13 +10,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("mongo-react/build"));
+  app.use(express.static("client/build"));
 }
 // Add routes, both API and view
 app.use(routes);
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/nytreact");
+mongoose.connect("mongodb://localhost/nytreact").catch(function (reason) {
+  console.log('Unable to connect to the mongodb instance. Error: ', reason);
+});
 
 // Start the API server
 app.listen(PORT, function() {

@@ -1,4 +1,5 @@
 const db = require("../models");
+const path = require("path");
 
 module.exports = {
   // findAll: function(req, res) {
@@ -29,6 +30,7 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   navigate: function (req, res) {
-    res.sendFile(__dirname + 'client/build/index.html');
+    console.log(path.join(__dirname, '../client/build/', 'index.html'))
+    res.sendFile(path.join(__dirname, '../client/build/', 'index.html'));
   },
 };

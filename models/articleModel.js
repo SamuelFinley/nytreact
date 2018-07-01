@@ -8,6 +8,6 @@ const articleSchema = new Schema({
   url: { type: String, required: true },
 });
 
-const Article = mongoose.model("article", articleSchema);
+const Article = mongoose.model("Article", articleSchema);
 
 module.exports = Article;

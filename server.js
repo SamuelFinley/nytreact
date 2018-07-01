@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const routes = require("./routes");
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 // Define middleware here
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === "production") {
 app.use(routes);
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/nytreact").catch(function (reason) {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/nytreact").catch(function (reason) {
   console.log('Unable to connect to the mongodb instance. Error: ', reason);
 });
 

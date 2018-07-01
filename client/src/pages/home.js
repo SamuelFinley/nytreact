@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import API from "../utils/API";
-import Container from "../components/Container";
 import SearchForm from "../components/SearchForm";
+import DeleteBtn from "../components/DeleteBtn";
 import Alert from "../components/Alert";
+import Jumbotron from "../components/Jumbotron";
+import { Col, Row, Container } from "../components/Grid";
+import { List, ListItem } from "../components/List";
 
 class Search extends Component {
   state = {
@@ -28,6 +31,13 @@ class Search extends Component {
       this.setState({ articles: res.data})
     )
     .catch(err => console.log(err));
+  };
+
+  delete = id => {
+    API.deleteSaved(id)
+      .then(res => this.loadSave())
+      .catch(err => console.log(err));
+      console.log(id)
   };
 
   handleInputChange = event => {
@@ -83,6 +93,23 @@ class Search extends Component {
               </li>
             ))}
           </ul>
+          <Col size="md-6 sm-12">
+            <Jumbotron>
+              <h1>Saved Articles</h1>
+            </Jumbotron>
+            {this.state.articles.length ? (
+              <List>
+                {this.state.articles.map(article => (
+                  <ListItem key={article._id}>
+                  <a href={article.web_url}>{article.title}</a>
+                    <DeleteBtn onClick={() => this.delete(article._id)} />
+                  </ListItem>
+                ))}
+              </List>
+            ) : (
+              <h3>No Results to Display</h3>
+            )}
+          </Col>
         </Container>
       </div>
     );

@@ -21,9 +21,10 @@ export default {
     return axios.get("/api/articles");
   },
   deleteSaved: function(id) {
-    return axios.delete("/api/articles" + id);
+    return axios.delete("/api/articles/" + id);
   },
   save: function(data) {
+    console.log(data)
     return axios.post("/api/articles", data);
   }
 };

@@ -2,7 +2,11 @@
   "name": "mern",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://127.0.0.1:3001",
+  "proxy": {
+    "/api/articles": {
+      "target": "https://localhost:3001"
+    }
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "react": "^16.4.1",
